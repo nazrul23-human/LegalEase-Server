@@ -9,4 +9,16 @@ router.get("/me", verifyToken, (req, res) => {
     });
 });
 
+router.post("/upload", verifyToken, async (req, res) => {
+
+    try {
+        res.json({
+            message: "Upload route ready"
+        });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
+
 module.exports = router;
