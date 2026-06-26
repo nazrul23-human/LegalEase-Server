@@ -1,9 +1,33 @@
 const express = require("express");
 const router = express.Router();
 
-const { register, login } = require("../controllers/authController");
+const User = require("../models/User");
+const { verifyToken } = require("../middleware/authMiddleware");
 
-router.post("/register", register);
-router.post("/login", login);
+//GET LOGGED USER
+router.get("/me", verifyToken, (req, res) => {
+    res.json({ user: req.user });
+});
+
+//UPDATE PROFILE (REAL DB UPDATE)
+router.put("/update", verifyToken, async (req, res) => {
+    try {
+        const { name, avatar } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.id,
+            { name, avatar },
+            { new: true }
+        );
+
+        res.json({
+            message: "Profile updated",
+            user: updatedUser
+        });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 module.exports = router;

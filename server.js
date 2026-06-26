@@ -20,10 +20,13 @@ mongoose.connect(process.env.MONGO_URI)
 const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/auth", authRoutes);
+
 const dashboardRoutes = require("./routes/dashboardRoutes");
 
 app.use("/api/dashboard", dashboardRoutes);
 
+const userRoutes = require("./routes/userRoutes");
+app.use("/api/user", userRoutes);
 
 
 // TEST ROUTE
