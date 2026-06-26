@@ -20,6 +20,11 @@ mongoose.connect(process.env.MONGO_URI)
 const authRoutes = require("./routes/authRoutes");
 
 app.use("/api/auth", authRoutes);
+const dashboardRoutes = require("./routes/dashboardRoutes");
+
+app.use("/api/dashboard", dashboardRoutes);
+
+
 
 // TEST ROUTE
 app.get("/", (req, res) => {
