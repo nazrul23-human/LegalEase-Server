@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "lawyer", "admin"],
       default: "user",
     },
+    isApproved: {
+        type: Boolean,
+        default: false
+    },
   },
   { timestamps: true }
 );

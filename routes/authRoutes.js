@@ -29,5 +29,15 @@ router.put("/update", verifyToken, async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+router.put("/admin/approve/:id", verifyToken, requireRole("admin"), async (req, res) => {
+
+    const user = await User.findByIdAndUpdate(
+        req.params.id,
+        { isApproved: true },
+        { new: true }
+    );
+
+    res.json({ message: "Lawyer approved", user });
+});
 
 module.exports = router;
