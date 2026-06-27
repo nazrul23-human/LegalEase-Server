@@ -39,5 +39,20 @@ router.put("/admin/approve/:id", verifyToken, requireRole("admin"), async (req, 
 
     res.json({ message: "Lawyer approved", user });
 });
+//ONLY APPROVED LAWYERS
+router.get("/lawyers", async (req, res) => {
+
+    try {
+        const lawyers = await User.find({
+            role: "lawyer",
+            isApproved: true
+        });
+
+        res.json({ lawyers });
+
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 
 module.exports = router;

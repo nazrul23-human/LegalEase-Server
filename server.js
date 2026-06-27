@@ -25,11 +25,9 @@ const dashboardRoutes = require("./routes/dashboardRoutes");
 
 app.use("/api/dashboard", dashboardRoutes);
 
-const userRoutes = require("./routes/userRoutes");
-app.use("/api/user", userRoutes);
+const paymentRoutes = require("./routes/paymentRoutes");
 
-
-
+app.use("/api/payment", paymentRoutes);
 
 // TEST ROUTE
 app.get("/", (req, res) => {
