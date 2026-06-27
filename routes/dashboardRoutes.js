@@ -3,7 +3,7 @@ const router = express.Router();
 
 const { verifyToken, requireRole } = require("../middleware/authMiddleware");
 
-// 🔥 USER DASHBOARD
+// USER DASHBOARD
 router.get("/user", verifyToken, (req, res) => {
     res.json({
         message: "User Dashboard",
@@ -11,7 +11,7 @@ router.get("/user", verifyToken, (req, res) => {
     });
 });
 
-// 🔥 LAWYER DASHBOARD
+// LAWYER DASHBOARD
 router.get("/lawyer", verifyToken, requireRole("lawyer"), (req, res) => {
     res.json({
         message: "Lawyer Dashboard"
