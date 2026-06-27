@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const upload = require("../middleware/upload");
 
 const { verifyToken } = require("../middleware/authMiddleware");
 
@@ -36,5 +37,27 @@ router.get("/lawyers", async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+router.post("/upload", upload.single("image"), (req, res) => {
+    res.json({
+        imageUrl: req.file.path
+    });
+});
+router.delete(
+    "/admin/user/:id",
+    verifyToken,
+    requireRole("admin"),
+    async (req, res) => {
+        try {
+            await User.findByIdAndDelete(req.params.id);
+
+            res.json({
+                message: "User deleted successfully"
+            });
+
+        } catch (err) {
+            res.status(500).json({ message: err.message });
+        }
+    }
+);
 
 module.exports = router;
